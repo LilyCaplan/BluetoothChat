@@ -17,6 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"a button" forState:UIControlStateNormal];
+    button.frame = CGRectMake(50, 50, 100, 30);
+    [button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
 }
 
 
@@ -25,5 +32,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)buttonPressed {
+    NSLog(@"button pressed");
+}
 
 @end
