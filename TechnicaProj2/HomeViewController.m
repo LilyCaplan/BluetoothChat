@@ -6,34 +6,36 @@
 //  Copyright © 2017 Saad Khalid. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "HomeViewController.h"
 
-@interface ViewController ()
+@interface HomeViewController ()
 
 @end
 
-@implementation ViewController
+@implementation HomeViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"a button" forState:UIControlStateNormal];
-    button.frame = CGRectMake(50, 50, 100, 30);
-    [button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-    
+  [super viewDidLoad];
+  // Do any additional setup after loading the view, typically from a nib.
+  
+  self.title = @"Home";
+  
+  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [button setTitle:@"a button" forState:UIControlStateNormal];
+  button.frame = CGRectMake(50, 100, 100, 30);
+  [button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
+  self.view.backgroundColor = [UIColor yellowColor];
+  [self.view addSubview:button];
 }
 
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 - (void)buttonPressed {
-    NSLog(@"button pressed");
+  NSLog(@"button pressed");
 }
 
 @end
