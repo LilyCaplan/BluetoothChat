@@ -31,6 +31,7 @@
     [self.advertiser startAdvertisingPeer];
     self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:serviceType];
     self.browser.delegate = self;
+    [self.browser startBrowsingForPeers];
   }
   return self;
 }
