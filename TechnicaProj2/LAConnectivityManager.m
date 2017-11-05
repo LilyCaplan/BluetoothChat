@@ -8,23 +8,29 @@
 
 #import "LAConnectivityManager.h"
 
-@interface LAConnectivityManager ()
+@interface LAConnectivityManager ()<MCNearbyServiceBrowserDelegate>
 
 @property(strong, nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property(strong, nonatomic) MCPeerID *localPeerID;
+@property(strong, nonatomic) MCNearbyServiceBrowser *browser;
+
+
 @end
 
 @implementation LAConnectivityManager
 
 - (instancetype)init {
+  NSString * serviceType = @"xoxo";
   self = [super init];
   if (self) {
     self.localPeerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
 
     self.advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.localPeerID
                                                         discoveryInfo:nil
-                                                          serviceType:@"XOXO"];
+                                                          serviceType:serviceType];
     [self.advertiser startAdvertisingPeer];
+    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:serviceType];
+    self.browser.delegate = self;
   }
   return self;
 }
@@ -34,7 +40,7 @@
 didReceiveInvitationFromPeer:(MCPeerID *)peerID
        withContext:(NSData *)context
  invitationHandler:(void(^)(BOOL accept, MCSession *session))invitationHandler{
-  NSLog(@"%@ YAY WE'RE CONNECTING", peerID);
+  NSLog(@"YAY WE'RE CONNECTING: %@", peerID);
   
   MCSession *session = [[MCSession alloc] initWithPeer:self.localPeerID
                                       securityIdentity:nil
@@ -42,5 +48,17 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
 //  session.delegate = self;
   invitationHandler(YES, session);
 }
+
+- (void)browser:(MCNearbyServiceBrowser *)browser didNotStartBrowsingForPeers:(NSError *)error {
+  NSLog(@"Did not start browsing: %@", error);
+}
+-(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID {
+  NSLog(@"Lost Peer: %@", peerID);
+}
+-(void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary<NSString *,NSString *> *)info{
+  NSLog(@"Yay connection made with: %@ %@", peerID, info);
+  
+}
+
 
 @end
