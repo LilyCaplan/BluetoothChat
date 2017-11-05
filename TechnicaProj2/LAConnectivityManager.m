@@ -51,7 +51,7 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
   self.session.delegate = self;
   [browser invitePeer:peerID toSession:self.session withContext:nil timeout:10];
 }
-- (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
-  NSLog(@"peer: %@, didChangeState: %d", peerID, (int)state);
-}
+//- (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
+//  NSLog(@"peer: %@, didChangeState: %d", peerID, (int)state);
+//}
 @end
